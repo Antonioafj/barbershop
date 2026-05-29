@@ -1,0 +1,15 @@
+spring:
+  flyway:
+    locations: classpath:db/migration
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/${DB_NAME_BARBEARIA}
+    username: ${DB_USER_BARBEARIA}
+    password: ${DB_PASSWORD_BARBEARIA}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
