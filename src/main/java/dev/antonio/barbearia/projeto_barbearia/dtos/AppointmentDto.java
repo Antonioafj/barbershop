@@ -1,11 +1,13 @@
 package dev.antonio.barbearia.projeto_barbearia.dtos;
 
-import dev.antonio.barbearia.projeto_barbearia.enums.SchedulingStatus;
+import dev.antonio.barbearia.projeto_barbearia.enums.AppointmentStatus;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
-public record SchedulingDto(
+public record AppointmentDto(
+
+        Long id,
 
         @NotNull(message = "O cliente é obrigatório")
         Long customerId,
@@ -19,11 +21,10 @@ public record SchedulingDto(
         @NotNull(message = "O serviço é obrigatório")
         Long serviceId,
 
-        @NotNull(message = "Status é obrigatório")
-        SchedulingStatus status,
+        AppointmentStatus status,
 
         @NotNull(message = "Horário de agendamento é obrigatório")
-        LocalDateTime schedulingTime
+        LocalDateTime appointmentTime
 
 ) {
 }

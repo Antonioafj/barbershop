@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Positive;
 
 public record ServiceDto(
 
+        Long id,
+
         @NotBlank(message = "O nome é obrigatório")
         String name,
 
