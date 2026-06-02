@@ -38,4 +38,7 @@ public class BarbershopEntity {
     @NotBlank(message = "O endereço é obrigatório")
     @Column(nullable = false)
     private String address;
+
+    @Column(nullable = false)
+    private Boolean active = true;
 }

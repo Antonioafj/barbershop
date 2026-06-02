@@ -31,25 +31,27 @@ public class BarbershopService {
         return barberShop;
     }
 
-    public List<BarberShopDto> listAllBarberShop(){
-        List<BarbershopEntity> barberShopList = barberShopRepository.findAll();
+    public List<BarberShopDto> getAllBarberShop(){
+        List<BarbershopEntity> barberShopList = barberShopRepository.findAllByActiveTrue();
         List<BarberShopDto> barberShopDtoList = new ArrayList<>();
 
         for (BarbershopEntity barber : barberShopList) {
 
-            BarberShopDto barberDto= barberShopMapper.toBarberShopDto(barber);
+                BarberShopDto barberDto = barberShopMapper.toBarberShopDto(barber);
 
-            barberShopDtoList.add(barberDto);
+                barberShopDtoList.add(barberDto);
         }
         return barberShopDtoList;
     }
 
     public BarberShopDto getBarberShopById(Long barberShopId){
 
-        BarbershopEntity barberShop = barberShopRepository.findById(barberShopId).orElse(null);
+
+        BarbershopEntity barberShop = barberShopRepository.findByIdAndActiveTrue(barberShopId).orElse(null);
+
 
         if (barberShop == null){
-            throw  new RuntimeException("Barber not found");
+            throw  new RuntimeException("Barbershop not found");
         }
 
         BarberShopDto barberShopDto = barberShopMapper.toBarberShopDto(barberShop);
@@ -62,12 +64,13 @@ public class BarbershopService {
         BarbershopEntity barberShop = barberShopRepository.findById(barberShopId).orElse(null);
 
         if (barberShop == null){
-            throw  new RuntimeException("Barber not found");
+            throw  new RuntimeException("Barbershop not found");
         }
 
         barberShop.setName(barberDto.name());
         barberShop.setTelephone(barberDto.telephone());
         barberShop.setEmail(barberDto.email());
+        barberShop.setAddress(barberDto.address());
 
         barberShopRepository.save(barberShop);
 
@@ -75,16 +78,17 @@ public class BarbershopService {
     }
 
 
-    public void deleteBarberShopById( Long barberId ){
+    public void deleteBarberShopById( Long barberShopId ){
 
-        BarbershopEntity barberShop = barberShopRepository.findById(barberId).orElse(null);
+        BarbershopEntity barberShop = barberShopRepository.findById(barberShopId).orElse(null);
 
         if (barberShop == null){
 
-            throw  new RuntimeException("Barber not found");
+            throw  new RuntimeException("Barbershop not found");
 
         }
 
-        barberShopRepository.delete(barberShop);
+        barberShop.setActive(false);
+        barberShopRepository.save(barberShop);
     }
 }

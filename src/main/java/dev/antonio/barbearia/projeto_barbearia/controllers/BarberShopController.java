@@ -29,7 +29,7 @@ public class BarberShopController {
     @GetMapping
     public ResponseEntity<List<BarberShopDto>> getAllBarberShop() {
 
-        List<BarberShopDto> barberDtoList = barbershopService.listAllBarberShop();
+        List<BarberShopDto> barberDtoList = barbershopService.getAllBarberShop();
 
         return ResponseEntity.ok(barberDtoList);
     }

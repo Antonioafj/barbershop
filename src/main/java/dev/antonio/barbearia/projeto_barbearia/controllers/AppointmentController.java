@@ -1,6 +1,6 @@
 package dev.antonio.barbearia.projeto_barbearia.controllers;
 
-import dev.antonio.barbearia.projeto_barbearia.dtos.CustomerDto;
+import dev.antonio.barbearia.projeto_barbearia.dtos.AppointmentDto;
 import dev.antonio.barbearia.projeto_barbearia.services.AppointmentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,43 +17,43 @@ public class AppointmentController {
     private final AppointmentService appointmentService;
 
     @PostMapping
-    public ResponseEntity<CustomerDto> createAppointment(@Valid @RequestBody CustomerDto barberDto) {
-        CustomerDto customer = appointmentService.createCustomer(barberDto);
+    public ResponseEntity<AppointmentDto> createAppointment(@Valid @RequestBody AppointmentDto appointmentDto) {
+        AppointmentDto appointment = appointmentService.createAppointment(appointmentDto);
 
-        return ResponseEntity.ok(customer);
+        return ResponseEntity.ok(appointment);
     }
 
 
     @GetMapping
-    public ResponseEntity<List<CustomerDto>> getAllCustomer() {
+    public ResponseEntity<List<AppointmentDto>> getAllAppointment() {
 
-        List<CustomerDto> barberDtoList = appointmentService.getAllCustomer();
+        List<AppointmentDto> appointmentDtoList = appointmentService.getAllAppointment();
 
-        return ResponseEntity.ok(barberDtoList);
+        return ResponseEntity.ok(appointmentDtoList);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerDto> getCustomerById(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<AppointmentDto> getAppointmentById(@PathVariable(name = "id") Long id) {
 
-        CustomerDto customerDto = appointmentService.getCustomerById(id);
+        AppointmentDto appointmentDto = appointmentService.getAppointmentById(id);
 
-        return ResponseEntity.ok(customerDto);
+        return ResponseEntity.ok(appointmentDto);
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerDto> deleteCustomerById(@RequestBody CustomerDto customerDto, @PathVariable(name = "id") Long id) {
+    public ResponseEntity<AppointmentDto> updateAppointmentById(@RequestBody AppointmentDto appointmentDto, @PathVariable(name = "id") Long id) {
 
-        CustomerDto customerUpdate = appointmentService.updateCustomerById(customerDto,
+        AppointmentDto appointmentUpdate = appointmentService.updateAppointmentById(appointmentDto,
                 id);
 
-        return  ResponseEntity.ok(customerUpdate);
+        return  ResponseEntity.ok(appointmentUpdate);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBarBerById(@PathVariable Long id){
+    public ResponseEntity<Void> deleteAppointmentById(@PathVariable Long id){
 
-        appointmentService.deleteCustomerById(id);
+        appointmentService.deleteAppointmentById(id);
 
         return ResponseEntity.ok().build();
     }
